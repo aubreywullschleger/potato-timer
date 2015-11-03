@@ -75,8 +75,12 @@
     }
   });
 
+  var startClicks = 0;
   start.addEventListener('click', function () {
-    startPomodoro(pTime, bTime);
+    startClicks += 1;
+    if(startClicks === 1) {
+      startPomodoro(pTime, bTime);  
+    }
   });
   
   pause.addEventListener('click', function () {
@@ -84,6 +88,7 @@
     var pauseSec = sec.innerHTML;
     clearInterval(pomodoroInterval);
     clearInterval(breakInterval);
+    startClicks = 0;
     min.innerHTML = pauseMin;
     sec.innerHTML = pauseSec;
     pTime = parseInt(pauseMin * 60) + parseInt(pauseSec);
