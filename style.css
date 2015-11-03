@@ -1,0 +1,101 @@
+*, *:before, *:after {
+  box-sizing: border-box;
+  margin: 0 auto;
+  text-align: center;
+}
+body {
+  background-color: rgba(0, 0, 0, .1);
+  font-family: 'Rock Salt', cursive;
+  position: relative;
+}
+main {
+  background-image: url(./images/potatoes_woodcut.svg);
+  opacity: 0.2;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  position: absolute;
+  background-position: bottom left;
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-size: contain;
+  z-index: -1;
+  width: 100vmin;
+  height: 100vmin;
+}
+.clock {
+  width: 50%;
+  height: 50%;
+  padding-top: 15%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+h1 {
+  display: inline;
+  margin-left: 2%;
+  color: grey;
+  font-size: 2em;
+  line-height: 0.5em;
+}
+h3 {
+  color: grey;
+}
+.submit, .start, .reset, .pause {
+  margin-top: 2%;
+  padding: 3%;
+  width: 50vmin;
+  height: 7vmin;
+  border: 1px solid white;
+  border-radius: 3px;
+}
+.subtractTime, .addTime {
+  display: inline-block;
+  border: none;
+  background: none;
+  font-family: 'Rock Salt', cursive;
+}
+.pomTime, .breakTime {
+  display: inline-block;
+  border: none;
+}
+
+.submit, .start, .pause, .reset {
+  display: block;
+  width: 45vmin;
+  border: 1px solid grey;
+  background-color: grey;
+  color: white;
+}
+.time {
+  background-color: white;
+  border: 1px solid white;
+  width: 50vmin;
+  border-radius: 3px;
+  color: grey;
+}
+.timeButtons {
+  width: 50vmin;
+}
+.start, .pause, .stop, .reset {
+  display: inline;
+  width: 20vmin;
+  height: 7vmin;
+}
+
+.reset {
+  width: 40vmin;
+}
+.potatoes {
+  width: 50vmin;
+  height: 35vmin;
+  margin-top: 2%;
+  padding: 3%;
+}
+.potatoEarned {
+  display: inline-block;
+  float: left;
+  margin-right: 2%;
+}

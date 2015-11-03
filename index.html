@@ -1,21 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>potato-timer</title>
+  <link href="http://fonts.googleapis.com/css?family=Rock+Salt" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="./style.css">
 </head>
+
 <body>
-  <h1>potato-timer</h1>
-  <section id="clock">
-    <input type="text" id="pomTime" placeholder="pomadoro time"><br>
-    <input type="text" id="breakTime" placeholder="break time"><br>
-    <input type="submit" id="submit" value="submit times"><br>
-    minutes: <span id="minutes"></span><br>
-    seconds: <span id="seconds"></span><br>
-    <button id="stop">stop</button>
-    <button id="start">start</button>
-    <button id="reset">reset</button>
-  </section>
-  <script type="text/javascript" src="./app.js"></script>
+  <div class="container">
+    <main></main>
+    <section id="clock" class="clock">
+      <div class="rectangle">
+        <div class="header">
+          <h1>potato-timer</h1>
+        </div>
+        <div id="inputs">
+          <h3>pomodoro time</h3>
+          <button id="pSubtractTime" class="subtractTime">-</button>
+          <section type="text" id="pomTime" class="pomTime"></section>
+          <button id="pAddTime" class="addTime">+</button>
+          <br>
+          <h3>break time</h3>
+          <button id="bSubtractTime" class="subtractTime">-</button>
+          <section type="text" id="breakTime" class="breakTime"></section>
+          <button id="bAddTime" class="addTime">+</button>
+          <br>
+          <input type="submit" id="submit" class="submit" value="submit times">
+          <br>
+        </div>
+        <div id="timeRemainingDisplay" class="timeRemainingDisplay">
+          <div class="time">
+            <span id="min" class="min"></span>
+            <span>:</span>
+            <span id="sec" class="sec"></span>
+          </div>
+          <div class="timeButtons">
+            <button id="start" class="start">start</button>
+            <button id="pause" class="pause">pause</button>
+            <button id="reset" class="reset">reset</button>
+          </div>
+        </div>
+        <section id="potatoes" class="potatoes"></section>
+      </div>
+    </section>
+  </div>
+  <script src="./potatoes/potatoes.js" hidden></script>
+  <script type="text/javascript" src="./app.js" hidden></script>
 </body>
+
 </html>

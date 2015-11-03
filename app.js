@@ -1,110 +1,180 @@
-var d = new Date();
-var pomTime;
-var breakTime;
-var endTime = d;
-var t;
-var timeInterval;
+(function () {
+  var timeInputs = document.getElementById('inputs');
+  var pTime = document.getElementById('pomTime');
+  var pMinus = document.getElementById('pSubtractTime');
+  var pAdd = document.getElementById('pAddTime');
+  var bTime = document.getElementById('breakTime');
+  var bMinus = document.getElementById('bSubtractTime');
+  var bAdd = document.getElementById('bAddTime');
+  pTime.innerHTML = '0';
+  bTime.innerHTML = '0';
+  
+  var pomTotalTime;
+  var breakTotalTime;
 
-function timeRemaining(endtime) {
-  var total = Date.parse(endtime) - Date.parse(new Date());
-  var seconds = Math.floor((total/1000) % 60);
-  var minutes = Math.floor((total/1000/60) % 60);
-  var hours = Math.floor((total/(1000*60*60) % 24));
-  return {
-    'total': total,
-    'hours': hours,
-    'minutes': minutes,
-    'seconds': seconds
-  };
-}
+  var submit = document.getElementById('submit');
 
-var submit = document.getElementById('submit');
-var minutes = document.getElementById('minutes');
-var seconds = document.getElementById('seconds');
-var stop = document.getElementById('stop');
-var start = document.getElementById('start');
-var reset = document.getElementById('reset');
+  var min = document.getElementById('min');
+  var sec = document.getElementById('sec');
+  min.innerHTML = '00';
+  sec.innerHTML = '00';
 
-function  bt (){
-  d.setMinutes(getMinutes() + breakTime);
-  endTime = d;
-  t = timeRemaining(endTime);
-  if(t.minutes < 10) {
-    minutes.innerHTML = '0' + t.minutes;  
-  } else{
-    minutes.innerHTML = t.minutes;
-  }
-  if(t.seconds <10){
-    seconds.innerHTML = '0' + t.seconds;
-  } else {
-      seconds.innerHTML = t.seconds;
-  } if (t.total <= 0) {
-    clearInterval(bI);
-  }
-  d = new Date();
-  d.setMinutes(d.getMinutes() + pomTime);
-  endTime = d;
-  updateClock();
-  timeInterval = setInterval(updateClock, 1000);
-}
-var bI;
-    
-function updateClock(){
-  t = timeRemaining(endTime);
-  if(t.minutes < 10) {
-    minutes.innerHTML = '0' + t.minutes;  
-  } else{
-    minutes.innerHTML = t.minutes;
-  }
-  if(t.seconds <10){
-    seconds.innerHTML = '0' + t.seconds;
-  } else {
-      seconds.innerHTML = t.seconds;
-  }
-  if(t.total <= 0) {
-    clearInterval(timeInterval);
-    bt();
-  } 
-  // d.setMinutes(d.getMinutes() + breakTime);
-  // endTime = d;
-  // bI = setInterval(bt, 1000);
-}
-submit.addEventListener('click', function() {
-  pomTime = document.getElementById('pomTime').value;
-  d.setMinutes(d.getMinutes() + pomTime);
-  endTime = d;
-  // breakTime = document.getElementById('breakTime').value;
-  updateClock();
-  timeInterval = setInterval(updateClock, 1000);
-});
+  var start = document.getElementById('start');
+  var pause = document.getElementById('pause');
+  var changeInterval = document.getElementById('changeInterval');
+  var reset = document.getElementById('reset');
 
-// stop.addEventListener('click', function() {
-//   clearInterval(timeInterval);
-//   clearInterval(bI);
-//   var timeLeft = timeRemaining(endTime);
-//   var total = Date.parse(endTime) - Date.parse(new Date());
-//   var newTimeRemaining = {
-//     'minutes': timeLeft.minutes,
-//     'seconds': timeLeft.seconds
-//   };
-//   d.setMinutes(newTimeRemaining.minutes);
-//   d.setSeconds(newTimeRemaining.seconds);
-//   endTime = d;
-// });
-// 
-// start.addEventListener('click', function() {
-//   var newDate = new Date();
-//   newDate.setMinutes(newDate.getMinutes() + d.getMinutes());
-//   newDate.setSeconds(newDate.getSeconds() + d.getSeconds());
-//   endTime = newDate;
-//   updateClock();
-//   timeInterval = setInterval(updateClock, 1000);
-// });
-// 
-// reset.addEventListener('click', function() {
-//   d = new Date();
-//   d.setMinutes(d.getMinutes() + 1);
-//   endTime = d;
-//   updateClock();
-//   timeInterval = setInterval(updateClock, 1000);
-// });
+  var potatoes = document.getElementById('potatoes');
+  var pomodoroInterval;
+  var breakInterval;
+  var pomodoroCounter;
+
+  var pClicks = 0;
+  pAdd.addEventListener('click', function () {
+    pClicks = pClicks + 1;
+    if(pClicks <= 0 || isNaN(pClicks)){
+     pTime.innerHTML = '0';
+   } else{
+     pTime.innerHTML = pClicks;
+     pTime.value = pClicks; 
+   }
+  });
+
+  pMinus.addEventListener('click', function () {
+    pClicks -= 1;
+    if(pClicks <= 0 || isNaN(pClicks)){
+      pTime.innerHTML = '0';
+    } else {
+      pTime.innerHTML = pClicks;
+      pTime.value = pClicks;  
+    }
+  });
+
+  var bClicks = 0;
+  bAdd.addEventListener('click', function () {
+    bClicks += 1;
+    if(bClicks <= 0 || isNaN(bClicks)){
+      bTime.innerHTML = '0';
+    } else {
+      bTime.innerHTML = bClicks;
+      bTime.value = bClicks;  
+    }
+  });
+
+  bMinus.addEventListener('click', function () {
+    bClicks -= 1;
+    if(bClicks < 0 || isNaN(bClicks)){
+      bTime.innerHTML = '0';
+    } else {
+      bTime.innerHTML = bClicks;
+      bTime.value = bClicks; 
+    }
+  });
+
+  start.addEventListener('click', function () {
+    startPomodoro(pTime, bTime);
+  });
+  
+  pause.addEventListener('click', function () {
+    var pauseMin = min.innerHTML;
+    var pauseSec = sec.innerHTML;
+    clearInterval(pomodoroInterval);
+    clearInterval(breakInterval);
+    min.innerHTML = pauseMin;
+    sec.innerHTML = pauseSec;
+    pTime = parseInt(pauseMin * 60) + parseInt(pauseSec);
+  });
+
+  reset.addEventListener('click', function () {
+    clearInterval(pomodoroInterval);
+    clearInterval(breakInterval);
+    if(pClicks < 10) {
+      min.innerHTML = '0' + pClicks;
+    } else{
+      min.innerHTML = pClicks;
+    }
+    sec.innerHTML = '00';
+  });
+
+  function startPomodoro(duration, breakDuration) {
+    var pomodoro = duration;
+    var breakTime = breakDuration;
+
+    pomodoroInterval = setInterval(function () {
+      var minutes = Math.floor(parseInt(pomodoro / 60));
+      var seconds = Math.floor(parseInt(pomodoro % 60));
+
+      if (minutes < 10) {
+        min.innerHTML = '0' + minutes;
+      } else {
+        min.innerHTML = minutes;
+      }
+      if (seconds < 10) {
+        sec.innerHTML = '0' + seconds;
+      } else {
+        sec.innerHTML = seconds;
+      }
+
+      if (--pomodoro < 0) {
+        clearInterval(pomodoroInterval);
+        startBreak(breakTime, duration);
+        return;
+      }
+    }, 1000);
+    return;
+  }
+
+  function startBreak(breakDuration, pomodoroDuration) {
+    var breakTimer = breakDuration;
+    var pomodoroTime = pomodoroDuration;
+
+    breakInterval = setInterval(function () {
+      var minutes = Math.floor(parseInt(breakTimer / 60));
+      var seconds = Math.floor(parseInt(breakTimer % 60));
+
+      if (minutes < 10) {
+        min.innerHTML = '0' + minutes;
+      } else {
+        min.innerHTML = minutes;
+      }
+      if (seconds < 10) {
+        sec.innerHTML = '0' + seconds;
+      } else {
+        sec.innerHTML = seconds;
+      }
+
+      if (--breakTimer < 0) {
+        pomodoroCounter++;
+        var potatoEarned = randomPotato();
+        potatoes.innerHTML = potatoes.innerHTML +
+          '<img src=' + potatoEarned.src +
+          ' class="potatoEarned" height=' +
+          potatoEarned.height + ' width="50px">';
+        clearInterval(breakInterval);
+        clearInterval(pomodoroInterval);
+        if ((pomodoroTime/60) < 10) {
+          min.innerHTML = '0' + pomodoroTime / 60;
+        } else {
+          min.innerHTML = pomodoroTime / 60;
+        }
+        return;
+      }
+    }, 1000);
+    return;
+  }
+
+  function startTimers() {
+    submit.addEventListener('click', function () {
+      pTime = pTime.value * 60 || (1 * 60);
+      bTime = bTime.value * 60 || (1 * 60);
+      timeInputs.innerHTML = '';
+      if ((pTime/60) < 10) {
+        min.innerHTML = '0' + pTime / 60;
+      } else {
+        min.innerHTML = pTime / 60;
+      }
+      sec.innerHTML = '00';
+    });
+  }
+  startTimers();
+}());
