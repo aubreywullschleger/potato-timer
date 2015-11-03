@@ -97,6 +97,7 @@
   reset.addEventListener('click', function () {
     clearInterval(pomodoroInterval);
     clearInterval(breakInterval);
+    startClicks = 0;
     if(pClicks < 10) {
       min.innerHTML = '0' + pClicks;
     } else{
@@ -154,6 +155,7 @@
 
       if (--breakTimer < 0) {
         pomodoroCounter++;
+        startClicks = 0;
         var potatoEarned = randomPotato();
         potatoes.innerHTML = potatoes.innerHTML +
           '<img src=' + potatoEarned.src +
