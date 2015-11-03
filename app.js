@@ -34,6 +34,7 @@
     pClicks = pClicks + 1;
     if(pClicks <= 0 || isNaN(pClicks)){
      pTime.innerHTML = '0';
+     pTime.value = 0;
    } else{
      pTime.innerHTML = pClicks;
      pTime.value = pClicks; 
@@ -44,6 +45,7 @@
     pClicks -= 1;
     if(pClicks <= 0 || isNaN(pClicks)){
       pTime.innerHTML = '0';
+      pTime.value = 0;
     } else {
       pTime.innerHTML = pClicks;
       pTime.value = pClicks;  
@@ -55,6 +57,7 @@
     bClicks += 1;
     if(bClicks <= 0 || isNaN(bClicks)){
       bTime.innerHTML = '0';
+      bTime.value = 0;
     } else {
       bTime.innerHTML = bClicks;
       bTime.value = bClicks;  
@@ -65,6 +68,7 @@
     bClicks -= 1;
     if(bClicks < 0 || isNaN(bClicks)){
       bTime.innerHTML = '0';
+      bTime.value = 0;
     } else {
       bTime.innerHTML = bClicks;
       bTime.value = bClicks; 
