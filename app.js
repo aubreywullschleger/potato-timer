@@ -165,8 +165,8 @@
 
   function startTimers() {
     submit.addEventListener('click', function () {
-      pTime = pTime.value * 60 || (1 * 60);
-      bTime = bTime.value * 60 || (1 * 60);
+      pTime = pTime.value * 60 || (25 * 60);
+      bTime = bTime.value * 60 || (5 * 60);
       timeInputs.innerHTML = '';
       if ((pTime/60) < 10) {
         min.innerHTML = '0' + pTime / 60;
