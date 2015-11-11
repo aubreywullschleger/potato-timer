@@ -62,9 +62,10 @@ h3 {
   border: none;
 }
 
-.submit, .start, .pause, .reset {
+.start, .reset {
   display: block;
-  width: 45vmin;
+  width: 40vmin;
+  height: 7vmin;
   border: 1px solid grey;
   background-color: grey;
   color: white;
@@ -79,15 +80,7 @@ h3 {
 .timeButtons {
   width: 50vmin;
 }
-.start, .pause, .stop, .reset {
-  display: inline;
-  width: 20vmin;
-  height: 7vmin;
-}
 
-.reset {
-  width: 40vmin;
-}
 .potatoes {
   width: 50vmin;
   height: 35vmin;
