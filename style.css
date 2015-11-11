@@ -1,4 +1,6 @@
-*, *:before, *:after {
+*,
+*:before,
+*:after {
   box-sizing: border-box;
   margin: 0 auto;
   text-align: center;
@@ -43,7 +45,8 @@ h1 {
 h3 {
   color: grey;
 }
-.submit, .start, .reset, .pause {
+.start,
+.reset {
   margin-top: 2%;
   padding: 3%;
   width: 50vmin;
@@ -51,18 +54,20 @@ h3 {
   border: 1px solid white;
   border-radius: 3px;
 }
-.subtractTime, .addTime {
+.subtractTime,
+.addTime {
   display: inline-block;
   border: none;
   background: none;
   font-family: 'Rock Salt', cursive;
 }
-.pomTime, .breakTime {
+.pomTime,
+.breakTime {
   display: inline-block;
   border: none;
 }
-
-.start, .reset {
+.start,
+.reset {
   display: block;
   width: 40vmin;
   height: 7vmin;
@@ -80,7 +85,6 @@ h3 {
 .timeButtons {
   width: 50vmin;
 }
-
 .potatoes {
   width: 50vmin;
   height: 35vmin;

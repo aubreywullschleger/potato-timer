@@ -17,8 +17,8 @@ var tato = new PotatoImg("tato.png", "50px");
 
 var potatoArray = [];
 potatoArray.push(aPotato, babyPotato, dancingPotato,
-  potato, potatoAT, potatoDance, potatoFry, potatoGlasses,
-  potatoSlide, sweetPotato, tato);
+    potato, potatoAT, potatoDance, potatoFry, potatoGlasses,
+    potatoSlide, sweetPotato, tato);
 
 function randomPotato() {
   var ranPo = potatoArray[Math.floor(Math.random() * (potatoArray.length - 1))];
